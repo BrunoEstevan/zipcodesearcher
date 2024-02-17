@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import "./App.css";
 import api from "./services/api";
+import { cepMask } from "./cep";
 
 function App() {
   const [input, setInput] = useState("");
@@ -41,19 +42,41 @@ function App() {
       setInput("");
     }
   }
+  const conditionals = (e) => {
+    if (e.key === "Enter") {
+      SearchFunction();
+    } else if (e.key === "Backspace" ) {
+      if (input[input.length - 1] === '-'){
+        setInput(setInput.slice(0, -3));
 
+      } else {
+        setInput(input.slice(0, -1));
+      }
+    }
+  };
 
+  function handleInputChange(e) {
+    const inputValue = e.target.value;
+    if (!/^\d*$/.test(inputValue)) {
+      return;
+    }
+    const maxLength = 9;
+    const maskedValue = cepMask(inputValue.slice(0, maxLength));
+    setInput(maskedValue);
+  }
 
   return (
     <div className="container">
       <h1 className="tittle">CEP SEARCHER</h1>
+    
       <div className="form">
         <input
           type="text"
           id="cep"
           placeholder="Type the CEP here..."
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={handleInputChange}
+          onKeyDown={conditionals}
         />
         <button className="buttonSearch" onClick={SearchFunction}>
           <BiSearchAlt size={25} color="#FFF" />
@@ -62,12 +85,52 @@ function App() {
 
       {Object.keys(cep).length > 0 && (
         <main className="main">
-          <h2>CEP {cep.cep}</h2>
+          <h2
+            style={{
+              border: "5px solid white",
+              borderRadius: "10px",
+              padding: "8px",
+            }}
+          >
+            CEP {cep.cep}
+          </h2>
 
-          <span>Rua: {cep.logradouro}</span>
-          <span>Numero ou Complemento: {cep.complemento}</span>
-          <span>Bairro: {cep.bairro}</span>
-          <span>
+          <span
+            style={{
+              border: "1px solid black",
+              borderRadius: "10px",
+              padding: "5px",
+            }}
+          >
+            Rua: {cep.logradouro}
+          </span>
+          {cep.complemento && (
+            <span
+              style={{
+                border: "1px solid black",
+                borderRadius: "10px",
+                padding: "5px",
+              }}
+            >
+              Numero ou Complemento: {cep.complemento}
+            </span>
+          )}
+          <span
+            style={{
+              border: "1px solid black",
+              borderRadius: "10px",
+              padding: "5px",
+            }}
+          >
+            Bairro: {cep.bairro}
+          </span>
+          <span
+            style={{
+              border: "1px solid black",
+              borderRadius: "10px",
+              padding: "5px",
+            }}
+          >
             {cep.localidade} - {cep.uf}
           </span>
         </main>

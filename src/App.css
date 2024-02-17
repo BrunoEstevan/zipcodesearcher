@@ -31,21 +31,23 @@
 }
    
 .tittle {
-    color: #fff;
-    font-size: 85px; 
-    animation: fliptittle 2s;
+  display: inline-block;
+  color: #fff;
+  font-size: 85px; 
+  animation: fliptittle 4.3s infinite;
+  text-transform: uppercase;
+  text-shadow: #fff 0px 0px 30px;
+  animation-delay: calc(.2s * var(--i))
+  
 }
+
+
 
 @keyframes fliptittle {
-  0% {
-    transform: rotateX(90deg);
-  }
-
-  100% {
-    transform: rotateX(0deg);
+  0%,80% {
+    transform: rotateY(360deg) 
   }
 }
-
 .form {
   background-color: rgba(255, 255, 255, 0.3);
   padding: 15px;
@@ -87,18 +89,22 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #fff;
-  width: 500px;
-  border-radius: 8px;
+  background-color: #ffffff85;
+  width: 450px;
+  border-radius: 10px;
+  box-shadow: #0000008c 0px 0px 10px;
 }
+
 
 .main h2 {
   color: #000;
   font-size: 39px;
   margin: 16px 0;
+
 }
 
 .main span {
+  color: rgba(29, 25, 85, 0.699);
   margin-bottom: 16px;
   font-weight: bold;
 }
