@@ -110,8 +110,12 @@
 }
 
 @media (max-width: 620px) {
-  .title {
+  .tittle {
+    display: inline-block;
     font-size: 60px;
+    width: 340px;
+   
+    
   }
 
   .main h2 {
@@ -122,4 +126,7 @@
     width: 80%;
     min-height: 250px;
   }
+
+  
 }
+
